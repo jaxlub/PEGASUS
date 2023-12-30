@@ -1,9 +1,6 @@
 ![VBRN Logo](./logo_landscape.png)
 
-
-
-<img src="./pegausLogo.jpg" alt="PEGASUS" width="100"> <span style="font-size:70px;font-family: 'Times New Roman';">PEGASUS</span>
-
+![Logo](./logo.png)
 
 # Hybrid Genome Assembly Pipeline
 # HyGBuild, PEGASUS, Genoweaver, Genome Giggery?
