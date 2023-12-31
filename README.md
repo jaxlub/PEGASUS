@@ -20,7 +20,7 @@ Research reported in this repository was supported by an Institutional Developme
 
 
 ### Pipeline Process
-![Pipeline](./pipeline_diagram.png)
+![Pipeline](./pipeline_diagra.png)
 
 
 ____(insert name here) is a Hybrid Genome Assembly Tool using long and short-reads. Prior to assembly, read quality is assessed using Nanoplot and FastQC, followed by the trimming of short-reads. Subsequently, all reads undergo the removal of extraneous human, prokaryotic, or viral components through Centrifuge. Long-reads are initial denoted into contigs via Flye before entering Hapo-G where contigs are polished with short-reads. The polished contigs are then re-scaffolded to the initial long-reads by NtLink. This is then polished again with Hapo-G and is output as an assembled genome in ```Results/.../HAPOGMAP/hapog.fasta```. Furthermore, this genome is scaffolded onto an input genome, ideally of the same species or close relative, for a further mapped genome in ```Results/.../ragtag.scaffold.fasta```. Both the Hapo-G-refined genome and the Ragtag-scaffolded genome undergo Busco, Quast and Mosdepth processes to assess genome quality and read depth.
