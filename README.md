@@ -1,14 +1,8 @@
 ![VBRN Logo](./logo_landscape.png)
 
-![Logo](./logo.png)
-
-# Hybrid Genome Assembly Pipeline
-# HyGBuild, PEGASUS, Genoweaver, Genome Giggery?
+![Logo](./logo2.png)
 
 
-Percisin enhanced genome assembly software using seqwuences
-
-Pretty Epic Genome Assembly Software useing short/longSequences
 ### Authors
 James (Jax) Lubkowitz, [Emily Curd](https://scholar.google.com/citations?user=uGHWHbgAAAAJ&hl=en&oi=ao), [Julie Dragon](https://scholar.google.com/citations?hl=en&user=ZVDbyLsAAAAJ), [Ed Harcourt](https://scholar.google.com/citations?user=x_oZs9IAAAAJ&hl=en&oi=ao)
 
@@ -73,9 +67,16 @@ nextflow run  /users/j/l/jlubkowi/scratch/bullhead_project/HL4/main.nf -resume \
 
 
 
-# Note -
+# Jaxs Notes  -
 Developed only with nanopore long reads and illumina and singular shortreads. 
 
+Hybrid Genome Assembly Pipeline
+HyGBuild, PEGASUS, Genoweaver, Genome Giggery?
+
+
+Percisin enhanced genome assembly software using seqwuences
+
+Pretty Epic Genome Assembly Software useing short/longSequences
 
 # TODO 
 - do we need parameter to specify illumina vs singular shortreads when trimming.... 
