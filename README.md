@@ -1,6 +1,6 @@
 ![VBRN Logo](./logo_landscape.png)
 
-![Logo](./logo2.png)
+![Logo](./logo.png)
 
 ### Authors
 James (Jax) Lubkowitz<sup>1,2</sup>, [Emily Curd](https://scholar.google.com/citations?user=uGHWHbgAAAAJ&hl=en&oi=ao)<sup>2</sup>, [Julie Dragon](https://scholar.google.com/citations?hl=en&user=ZVDbyLsAAAAJ)<sup>2</sup>, [Ed Harcourt](https://scholar.google.com/citations?user=x_oZs9IAAAAJ&hl=en&oi=ao)<sup>1</sup>
@@ -13,7 +13,7 @@ Research reported in this repository was supported by an Institutional Developme
 
 
 ### Pipeline Process
-![Pipeline](./pipeline_diagra.png)
+![Pipeline](./pipeline_diagram.png)
 
 
 Pegasus is a Hybrid Genome Assembly Tool using long and short-reads. Prior to assembly, read quality is assessed using Nanoplot and FastQC, followed by the trimming of short-reads and long-reads. Subsequently, all reads undergo the removal of extraneous human, prokaryotic, or viral components through Centrifuge. Long-reads are initial denoted into contigs via Flye before entering Hapo-G where the contigs are polished with short-reads. The polished contigs are then re-scaffolded to the initial long-reads via NtLink. This is then polished again with Hapo-G and is output as an assembled genome in ```Results/.../Hapog2/hapog.fasta```. Furthermore, this genome is scaffolded onto an input genome, ideally of the same species or close relative, for a further mapped genome in ```Results/.../ragtag.scaffold.fasta```. Both the Hapo-G-refined genome and the Ragtag-scaffolded genome undergo Busco, Quast and Mosdepth processes to assess genome quality and read depth.
