@@ -2,9 +2,8 @@
 
 ![Logo](./logo2.png)
 
-
 ### Authors
-James (Jax) Lubkowitz, [Emily Curd](https://scholar.google.com/citations?user=uGHWHbgAAAAJ&hl=en&oi=ao), [Julie Dragon](https://scholar.google.com/citations?hl=en&user=ZVDbyLsAAAAJ), [Ed Harcourt](https://scholar.google.com/citations?user=x_oZs9IAAAAJ&hl=en&oi=ao)
+James (Jax) Lubkowitz<sup>1,2</sup>, [Emily Curd](https://scholar.google.com/citations?user=uGHWHbgAAAAJ&hl=en&oi=ao)<sup>2</sup>, [Julie Dragon](https://scholar.google.com/citations?hl=en&user=ZVDbyLsAAAAJ)<sup>2</sup>, [Ed Harcourt](https://scholar.google.com/citations?user=x_oZs9IAAAAJ&hl=en&oi=ao)<sup>1</sup>
 
 ### Affiliations
 [Vermont Biomedical Research Network](https://vbrn.org), [Vermont Integrated Genomics Resource](https://www.med.uvm.edu/vigr/home), [University of Vermont](https://www.uvm.edu), [St. Lawrence University](https://www.stlawu.edu)
@@ -17,7 +16,7 @@ Research reported in this repository was supported by an Institutional Developme
 ![Pipeline](./pipeline_diagra.png)
 
 
-____(insert name here) is a Hybrid Genome Assembly Tool using long and short-reads. Prior to assembly, read quality is assessed using Nanoplot and FastQC, followed by the trimming of short-reads. Subsequently, all reads undergo the removal of extraneous human, prokaryotic, or viral components through Centrifuge. Long-reads are initial denoted into contigs via Flye before entering Hapo-G where contigs are polished with short-reads. The polished contigs are then re-scaffolded to the initial long-reads by NtLink. This is then polished again with Hapo-G and is output as an assembled genome in ```Results/.../HAPOGMAP/hapog.fasta```. Furthermore, this genome is scaffolded onto an input genome, ideally of the same species or close relative, for a further mapped genome in ```Results/.../ragtag.scaffold.fasta```. Both the Hapo-G-refined genome and the Ragtag-scaffolded genome undergo Busco, Quast and Mosdepth processes to assess genome quality and read depth.
+Pegasus is a Hybrid Genome Assembly Tool using long and short-reads. Prior to assembly, read quality is assessed using Nanoplot and FastQC, followed by the trimming of short-reads and long-reads. Subsequently, all reads undergo the removal of extraneous human, prokaryotic, or viral components through Centrifuge. Long-reads are initial denoted into contigs via Flye before entering Hapo-G where the contigs are polished with short-reads. The polished contigs are then re-scaffolded to the initial long-reads via NtLink. This is then polished again with Hapo-G and is output as an assembled genome in ```Results/.../Hapog2/hapog.fasta```. Furthermore, this genome is scaffolded onto an input genome, ideally of the same species or close relative, for a further mapped genome in ```Results/.../ragtag.scaffold.fasta```. Both the Hapo-G-refined genome and the Ragtag-scaffolded genome undergo Busco, Quast and Mosdepth processes to assess genome quality and read depth.
 
 
 
@@ -31,11 +30,12 @@ This pipeline requires Singularity and Nextflow.
 
 Once depedencies are completed 
 ```
-git clone https://github.com/jaxlub/TODDO
+git clone https://github.com/jaxlub/PEGASUS
 ```
 
 
 Singularity must loaded before every run or resume of the pipeline process
+```module load singularity```
 
 
 look into adding it to PATH/Executable
@@ -70,30 +70,24 @@ nextflow run  /users/j/l/jlubkowi/scratch/bullhead_project/HL4/main.nf -resume \
 # Jaxs Notes  -
 Developed only with nanopore long reads and illumina and singular shortreads. 
 
+
+Ask Emily about numbers on authoring lol
+
+Names?
 Hybrid Genome Assembly Pipeline
 HyGBuild, PEGASUS, Genoweaver, Genome Giggery?
-
-
 Percisin enhanced genome assembly software using seqwuences
-
 Pretty Epic Genome Assembly Software useing short/longSequences
 
 # TODO 
 - do we need parameter to specify illumina vs singular shortreads when trimming.... 
-- Build Actual graphic with nf.cores draw.io \
-https://nf-co.re/docs/contributing/design_guidelines
 - MIT Liscence 
 - Clean up publish dir... dont need so many nested dirs.
 - DOI on https://zenodo.org
 - citations and documentation
 - check w/ Emily about funding...
 - how to do multiqc of not the entire work dir..... 
-- check bam conversion... does centrifuge run in??
-
-
-
-
-
+- update results section of readme
 
 ### Output 
 Pipeline outputs all notable results to a Results directory. 
@@ -153,6 +147,8 @@ Results
     Before resuming run ```module load singularity``` and then resume run of pipeline. 
 
 
+### Development
+Pegasus was developed using oxford nanopore long reads and illumina/singularity shortreads. Jobs were submitted to 1 node with 40-80 CPUs and 128-256GB of memory for 100 hours (though often finished before this). 
 
 
 ## References and Tool Citations
@@ -202,7 +198,8 @@ https://doi.org/10.1186/s13059-022-02823-7
 ### Containers
 All containers come from https://depot.galaxyproject.org/singularity/
 https://galaxyproject.org/citing-galaxy/
-NOT SURE HOW TO CITE 
+
+- The Galaxy Community. The Galaxy platform for accessible, reproducible and collaborative biomedical analyses: 2022 update, Nucleic Acids Research, Volume 50, Issue W1, 5 July 2022, Pages W345–W351, doi:10.1093/nar/gkac247
 
 
 
