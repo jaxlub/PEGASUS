@@ -8,7 +8,7 @@ James (Jax) Lubkowitz<sup>1,2</sup>, [Emily Curd](https://scholar.google.com/cit
 ### Affiliations
 [Vermont Biomedical Research Network](https://vbrn.org), [Vermont Integrated Genomics Resource](https://www.med.uvm.edu/vigr/home), [University of Vermont](https://www.uvm.edu), [St. Lawrence University](https://www.stlawu.edu)
 
-### Funding - is this right @Emily?
+### Funding
 Research reported in this repository was supported by an Institutional Development Award (IDeA) from the National Institute of General Medical Sciences of the National Institutes of Health under grant number P20GM103449. Its contents are solely the responsibility of the authors and do not necessarily represent the official views of NIGMS or NIH.
 
 
@@ -71,18 +71,17 @@ nextflow run  /users/j/l/jlubkowi/scratch/bullhead_project/HL4/main.nf -resume \
 Developed only with nanopore long reads and illumina and singular shortreads. 
 
 
-Ask Emily about numbers on authoring lol
-
 # TODO 
 - do we need parameter to specify illumina vs singular shortreads when trimming.... 
 - MIT Liscence 
 - Clean up publish dir... dont need so many nested dirs.
+    - update results section of readme
 - DOI on https://zenodo.org
 - citations and documentation
 - how to do multiqc of not the entire work dir..... 
     bug in multiqc
-- unhardcode R file and PHV indexes... ask ed about?
-- update results section of readme
+- unhardcode R file and PHV indexes... ask Ed about adding hole package to path and best practices?
+- Ask Emily about numbering superscript on authors
 
 ### Output 
 Pipeline outputs all notable results to a Results directory. 
