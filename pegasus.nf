@@ -13,10 +13,10 @@ params.phvDatabase = ""
 params.ref1 = ""
 
 
-params.truseq3 = "/users/j/l/jlubkowi/scratch/bullhead_project/HL4/TruSeq3-PE-2.fa"
+params.truseq3 = "/users/j/l/jlubkowi/scratch/PEGASUS/TruSeq3-PE-2.fa"
 truseq_ch = Channel.fromPath( params.truseq3, checkIfExists: true)
 
-params.centrifugeRscript = "/users/j/l/jlubkowi/scratch/bullhead_project/HL42.0/run_centrifuge_clean.R"
+params.centrifugeRscript = "/users/j/l/jlubkowi/scratch/PEGASUS/run_centrifuge_clean.R"
 centrifugeRscript = Channel.fromPath( params.centrifugeRscript, checkIfExists: true)
 
 phvDatabase = Channel.fromPath( params.phvDatabase, checkIfExists: true)

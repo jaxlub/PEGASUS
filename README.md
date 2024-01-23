@@ -73,20 +73,15 @@ Developed only with nanopore long reads and illumina and singular shortreads.
 
 Ask Emily about numbers on authoring lol
 
-Names?
-Hybrid Genome Assembly Pipeline
-HyGBuild, PEGASUS, Genoweaver, Genome Giggery?
-Percisin enhanced genome assembly software using seqwuences
-Pretty Epic Genome Assembly Software useing short/longSequences
-
 # TODO 
 - do we need parameter to specify illumina vs singular shortreads when trimming.... 
 - MIT Liscence 
 - Clean up publish dir... dont need so many nested dirs.
 - DOI on https://zenodo.org
 - citations and documentation
-- check w/ Emily about funding...
 - how to do multiqc of not the entire work dir..... 
+    bug in multiqc
+- unhardcode R file and PHV indexes... ask ed about?
 - update results section of readme
 
 ### Output 
