@@ -142,6 +142,7 @@ Results
 ### Development
 Pegasus was developed using oxford nanopore long reads and illumina/singularity short reads. Jobs were submitted to 1 node with 40-80 CPUs and 128-256GB of memory for 100 hours (though often finished before this). 
 
+## For further documention see the attached PEGASUS paper
 
 ## References
 #### Busco
