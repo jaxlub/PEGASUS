@@ -2,7 +2,7 @@
 
 ![Logo](./images/logo.png)
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11390976.svg)](https://doi.org/10.5281/zenodo.11390976)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11397779.svg)](https://doi.org/10.5281/zenodo.11397779)
 
 ### Authors
 James (Jax) Lubkowitz<sup>1</sup>, [Emily Curd](https://scholar.google.com/citations?user=uGHWHbgAAAAJ&hl=en&oi=ao)<sup>2</sup>, [Julie Dragon](https://scholar.google.com/citations?hl=en&user=ZVDbyLsAAAAJ)<sup>2,3</sup>, [Ed Harcourt](https://scholar.google.com/citations?user=x_oZs9IAAAAJ&hl=en&oi=ao)<sup>1</sup>
