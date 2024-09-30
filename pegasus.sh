@@ -2,7 +2,6 @@
 
 nanoPath=""
 shortPath1=""
-shortPath2=""
 quastPathGFF=""
 quastPathFNA=""
 buscoPath=""
@@ -14,11 +13,11 @@ usage() {
     echo "Usage: $0 [-n <value>] [-s1 <value>] [-s2 <value>] [-qg <value>] [-qf <value>] [-b <value>] [-r <value>] [-phv <value>]"
     echo "Options:"
     echo "  -n <value>: Path to Nanopore Long Reads"
-    echo "  -s1 <value>: Path to Short Reads 1"
-    echo "  -s2 <value>: Path to Short Reads 2"
+    echo "  -s1 <value>: Path to Short Reads (optional)"
     echo "  -qg <value>: Path to Quast GFF file"
     echo "  -qf <value>: Path to Quast FNA file"
     echo "  -b <value>: Path to BUSCO Reference"
+    echo "  -t <value>: Number of Threads"
     echo "  -r <value>: Path to reference genome for Ragtag"
     echo "  -phv <value>: Path to PHV files for Centrifuge"
     exit 1
@@ -59,11 +58,6 @@ while [[ $# -gt 0 ]]; do
             shift
             shift
             ;;
-        -s2)
-            shortPath2="$2"
-            shift
-            shift
-            ;;
         -qg)
             quastPathGFF="$2"
             shift
@@ -84,6 +78,11 @@ while [[ $# -gt 0 ]]; do
             shift
             shift
             ;;  
+        -t)
+            t="$2"
+            shift
+            shift
+            ;; 
          -phv)
             phv="$2"
             shift
@@ -98,23 +97,38 @@ done
 script_dir=$(dirname "$0")
 
 pegasus_nextflow=$(echo "$script_dir/bin/pegasus.nf")
+pegasus_L_nextflow=$(echo "$script_dir/bin/pegasus_L.nf")
 rpath=$(echo "$script_dir/bin/run_centrifuge_clean.R")
 
-if [[ -n $nanoPath && -n $shortPath1 && -n $shortPath2 && -n $quastPathGFF && -n $quastPathFNA && -n $buscoPath && -n $ref1 && -n $phv ]]; then
+if [[ -n $nanoPath && -n $shortPath1 && -n $quastPathGFF && -n $quastPathFNA && -n $buscoPath && -n $ref1 && -n $phv && -n $t ]]; then
     echo "Configuration 1: Long- and Short-Read Assembly"
     parameters=$(echo "-resume 
     --nanoPath $nanoPath
     --shortPath1 $shortPath1
-    --shortPath2 $shortPath2
     --quastPathGFF $quastPathGFF
     --quastPathFNA $quastPathFNA
     --buscoPath $buscoPath
     --ref1 $ref1
     --centrifugeRscript $rpath
+    --threads $t
     --phvDatabase $phv")
 
     execute=$(echo "nextflow run $pegasus_nextflow $parameters")
     $execute
+elif [[ -n $nanoPath && -n $quastPathGFF && -n $quastPathFNA && -n $buscoPath && -n $ref1 && -n $phv && -n $t ]]; then
+    echo "Configuration 1: Long-Read Only Assembly"
+        parameters=$(echo "-resume 
+        --nanoPath $nanoPath
+        --quastPathGFF $quastPathGFF
+        --quastPathFNA $quastPathFNA
+        --buscoPath $buscoPath
+        --ref1 $ref1
+        --centrifugeRscript $rpath
+        --threads $t
+        --phvDatabase $phv")
+
+        execute=$(echo "nextflow run $pegasus_L_nextflow $parameters")
+        $execute
 else
     echo "Illegal configuration: Incomplete flags entered"
     usage

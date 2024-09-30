@@ -16,11 +16,15 @@ James (Jax) Lubkowitz<sup>1</sup>, [Emily Curd](https://scholar.google.com/citat
 Research reported in this repository was supported by an Institutional Development Award (IDeA) from the National Institute of General Medical Sciences of the National Institutes of Health under grant number P20GM103449. Its contents are solely the responsibility of the authors and do not necessarily represent the official views of NIGMS or NIH.
 
 ### PEGASUS
-We introduce PEGASUS, a Pretty Epic Genome Assembly Software Using Sequences, as an all-in-one, user-friendly genome assembly tool that implements hybrid assembly methods (i.e., using both long and short read sequences) to produce reliable results. PEGASUS is written in and containerized in Nextflow to ensure reproducible results across environments. In addition to genome assembly, PEGASUS analyzes raw reads to gather statistics, and employs various methods to ensure the quality of the assembled genome allowing for a comprehensive process. PEGASUS also provides a reference genome scaffolding, which allows for high-quality genome assemblies across multiple individuals without requiring extensive read depth (if a suitable reference genome is available). This approach yields significant advantages in terms of reducing sequencing costs, assembly runtime, and computational power needed when building many genomes of the same species.
+We introduce PEGASUS, a Pretty Epic Genome Assembly Software Using Sequences, as an all-in-one, user-friendly genome assembly tool that implements hybrid (i.e., using both long and short read sequences) and long-read only assembly methods to produce reliable results. PEGASUS is written in and containerized in Nextflow to ensure reproducible results across environments. In addition to genome assembly, PEGASUS analyzes raw reads to gather statistics, and employs various methods to ensure the quality of the assembled genome allowing for a comprehensive process. PEGASUS also provides a reference genome scaffolding, which allows for high-quality genome assemblies across multiple individuals without requiring extensive read depth (if a suitable reference genome is available). This approach yields significant advantages in terms of reducing sequencing costs, assembly runtime, and computational power needed when building many genomes of the same species.
 
-### Pipeline
+### Hyrbid Pipeline
 ![Pipeline](./images/PEGASUS.png)
 Pegasus is a hybrid genome assembly tool that uses long and short reads. Prior to assembly, read quality is assessed using Nanoplot and FastQC, followed by the trimming of short-reads and long-reads with Fastp. Subsequently, all reads undergo the removal of extraneous human, prokaryotic, or viral components through Centrifuge. Long-reads are initial denoted into contigs via Flye before entering a polishing phase (with both short and then long reads with Hapo-g and Racon respectively). The polished contigs are then re-scaffolded to the initial long reads via Ntlink. This is then re-polished again with both sets of reads producing a read-only genome build. Furthermore, this genome is scaffolded onto a user-specified reference genome with ragtag for an additional mapped genome. Both the read-only genome and the reference-scaffolded genome undergo Busco, Quast and Mosdepth processes to assess genome quality and read depth.
+
+### Long-read only Pipeline
+![Pipeline](./images/long_read_pipeline_diagram.png)
+The long-read only pipeline follows a similar structure to the hybrid process. Prior to assembly, read quality is assessed using Nanoplot and FastQC, followed by the trimming of long-reads with Fastp. Subsequently, all reads undergo the removal of extraneous human, prokaryotic, or viral components through Centrifuge. Long-reads are initial denoted into contigs via Flye before entering a polishing phase with Racon. The polished contigs are then re-scaffolded to the initial long reads via Ntlink. This is then re-polished again with the long-reads producing a read-only genome build. Furthermore, this genome is scaffolded onto a user-specified reference genome with ragtag for an additional mapped genome. Both the read-only genome and the reference-scaffolded genome undergo Busco and Quast processes to assess genome quality.
 
 ### Usage
 Software requirements: [Singularity](https://docs.sylabs.io/guides/3.0/user-guide/installation.html) and [Nextflow](https://www.nextflow.io/docs/latest/getstarted.html)
@@ -31,37 +35,51 @@ git clone https://github.com/jaxlub/PEGASUS
 ```
 
 #### Parameters
+
+##### Hybrid Pipeline
 ```
 pegasus.sh -n <Path to long reads>
             -s1 <Path to batch 1 of short reads>
-            -s2 <Path to batch 2 of short reads>
             -phv <Path to PHV indexes>
             -qg <Path to Quast .gff reference>
             -qf <Path to Qaust .fna reference>
             -b <Path to Busco reference>
             -r <Path to reference genome for ragtag scaffolding>
+            -t <Number of threads>
+```
+
+##### Long-read Pipeline
+```
+pegasus.sh -n <Path to long reads>
+            -phv <Path to PHV indexes>
+            -qg <Path to Quast .gff reference>
+            -qf <Path to Qaust .fna reference>
+            -b <Path to Busco reference>
+            -r <Path to reference genome for ragtag scaffolding>
+            -t <Number of threads>
 ```
 For effective implementation PEGASUS requires:
 - Long Read Sequences
-- Short Read Sequences
+- Short Read Sequences (not needed for long-read pipeline)
 - [PHV indexes](https://ccb.jhu.edu/software/centrifuge/manual.shtml): PHV indexes for identification and removal of contaminate sequences via Centrifuge.
 - Quast reference: Quast reference is required for assessing the quality of the assembly (both .gff & .fna files).
 - [Busco reference](https://busco.ezlab.org/busco_userguide.html#lineage-datasets): A Busco reference is necessary for comparative genomics analysis.
 - Reference genome: A reference genome for ragtag alignment. 
+- Number of threads to run all processes on. 
 
-For optimal results, it is recommended that the three references mentioned above are closely related to the genome being assembled. This ensures greater accuracy in assembly and metrics evaluation.
-
+For optimal results, it is recommended that the three references mentioned above are closely related to the genome being assembled. This ensures greater accuracy in assembly and metrics evaluation. 
 
 #### Example Usage
 ```
-pegasus.sh -n '/users/j/l/jlubkowi/scratch/spider_project/reads/all_spider_long.fastq.gz' \
-            -s1 '/users/j/l/jlubkowi/scratch/spider_project/reads/short_reads1' \
-            -s2 '/users/j/l/jlubkowi/scratch/spider_project/reads/short_reads2' \
+pegasus.sh \
+            -n '/users/j/l/jlubkowi/scratch/bullhead_project/Catfish/BS1/reads/long_reads/BS1_nanopore_raw_backup.fastq.gz' \
+            -s1 '/users/j/l/jlubkowi/scratch/bullhead_project/Catfish/BS1/reads/short_reads1'\
             -phv '/users/j/l/jlubkowi/scratch/PHVindexes'\
-            -qg '/users/j/l/jlubkowi/scratch/ncbi_dataset/data/GCF_026930045.1/genomic.gff' \
-            -qf '/users/j/l/jlubkowi/scratch/ncbi_dataset/data/GCF_026930045.1/GCF_026930045.1_Udiv.v.3.1_genomic.fna' \
-            -b '/users/j/l/jlubkowi/scratch/spider_project/arachnida_odb10' \
-            -r '/users/j/l/jlubkowi/scratch/ncbi_dataset/data/GCF_026930045.1/GCF_026930045.1_Udiv.v.3.1_genomic.fna' 
+            -qg '/users/j/l/jlubkowi/scratch/bullhead_project/Ameiurus_melas_genome/GCA_012411365.1_AMELA_1.0_genomic.gff' \
+            -qf '/users/j/l/jlubkowi/scratch/bullhead_project/Ameiurus_melas_genome/GCA_012411365.1_AMELA_1.0_genomic.fna' \
+            -b '/gpfs1/home/e/g/eguswa/scratch/bullhead/actinopterygii_odb10' \
+            -r '/users/j/l/jlubkowi/scratch/bullhead_project/Catfish/HL4RefGen.fasta' \
+            -t '16'
 ```
 
 ### Software Versions
